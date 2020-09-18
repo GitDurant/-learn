@@ -1,13 +1,29 @@
 import Vue from 'vue'
+// 导入路由
 import VueRouter from 'vue-router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// 导入Element
+import ElementUI from '@/views/useElement'
+// 导入自定义样式styles
+// 导入login
+import Login from '@/views/login'
+// 导入 home
+import Home from '@/views/home'
 Vue.use(VueRouter)
-Vue.use(ElementUI)
 
 const routes = [
   {
-    path: '../views/useElement',
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/useElement',
+    name: 'useElementui',
     component: ElementUI
   }
 ]
