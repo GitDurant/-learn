@@ -9,13 +9,18 @@
           <el-input v-model="form.mobile" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
+          <el-row>
+            <el-col :span="12">
+              <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
+            </el-col>
+            <el-col :span="10" :offset="2">
+              <el-button class="colBtn">获取验证码</el-button>
+            </el-col>
+          </el-row>
         </el-form-item>
         <el-form-item>
           <el-button class="loginbtn" type="primary" @click="login"
-            >登录</el-button
-          >
-          <el-button>获取验证码</el-button>
+            >登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -23,12 +28,14 @@
 </template>
 
 <script>
+// 引入axios
+import axios from 'axios'
 export default {
   data () {
     return {
       form: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       rules: {
         mobile: [
@@ -46,11 +53,27 @@ export default {
     login () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.submitdata()
         } else {
           console.log('error submit!!')
-          return false
         }
+      })
+    },
+    submitdata () {
+      axios({
+        url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+        metho: 'post',
+        data: this.form
+      }).then(res => {
+        this.$router.push('/')
+        this.$message({
+          message: '恭喜你,登录成功',
+          type: 'success'
+        })
+      }).catch(err => {
+        console.log(err)
+        this.$router.push('/home')
+        this.$message.error('登录失败，请输入正确的手机号码或验证码')
       })
     }
   }
@@ -65,12 +88,15 @@ export default {
   background-color: #ccc;
   .loginwarp {
     background-color: #fff;
-    padding: 40px;
+    padding: 30px;
     .loginlog {
       text-align: center;
       padding-bottom: 20px;
       img {
         width: 160px;
+      }
+      .colBtn {
+        width: 100%;
       }
     }
     .loginbtn {

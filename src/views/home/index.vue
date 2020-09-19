@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h4>我是一个登录成功后的页面</h4>
+      <h4>我是一个登录成功后Home页面</h4>
   </div>
 </template>
 
