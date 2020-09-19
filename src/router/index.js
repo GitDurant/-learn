@@ -8,9 +8,15 @@ import ElementUI from '@/views/useElement'
 import Login from '@/views/login'
 // 导入 home
 import Home from '@/views/home'
+// 导入 Layout
+import Layout from '@/views/layout'
 Vue.use(VueRouter)
-
 const routes = [
+  // 给login组件设置重定向
+  {
+    path: '/',
+    redirect: '/home'
+  },
   {
     path: '/login',
     name: 'login',
@@ -20,6 +26,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/layout',
+    name: 'layout',
+    component: Layout
   },
   {
     path: '/useElement',
