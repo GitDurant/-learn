@@ -19,7 +19,7 @@
           </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button class="loginbtn" type="primary" @click="login"
+          <el-button class="loginbtn" type="primary" @click="login"  :loading="loginloading"
             >登录</el-button>
         </el-form-item>
       </el-form>
@@ -60,19 +60,20 @@ export default {
       })
     },
     submitdata () {
+      this.loginloading = true
       axios({
         url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
         metho: 'post',
         data: this.form
       }).then(res => {
-        this.$router.push('/')
         this.$message({
           message: '恭喜你,登录成功',
           type: 'success'
         })
+        this.loginloading = false
+        this.$router.push('/')
       }).catch(err => {
         console.log(err)
-        this.$router.push('/home')
         this.$message.error('登录失败，请输入正确的手机号码或验证码')
       })
     }
