@@ -10,6 +10,8 @@ import Login from '@/views/login'
 import Home from '@/views/home'
 // 导入 Layout
 import Layout from '@/views/layout'
+// 导入Publish
+import Publish from '@/views/publish'
 Vue.use(VueRouter)
 const routes = [
   // 给login组件设置重定向
@@ -23,14 +25,13 @@ const routes = [
     component: Login
   },
   {
-    path: '/home',
-    name: 'home',
-    component: Home
-  },
-  {
     path: '/layout',
     name: 'layout',
-    component: Layout
+    component: Layout,
+    children: [
+      { path: '/home', component: Home },
+      { path: '/publish', component: Publish }
+    ]
   },
   {
     path: '/useElement',

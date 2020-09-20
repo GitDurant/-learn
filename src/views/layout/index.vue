@@ -4,7 +4,9 @@
       <el-aside width="200px"><LayoutAsider /></el-aside>
       <el-container>
         <el-header><LayoutHeader /></el-header>
-        <el-main>Main</el-main>
+        <el-main>
+            <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </div>
