@@ -7,7 +7,7 @@
       <el-col :offset="6" :span="4">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link suerinof">
-            <img class="pik" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3970647844,1653451223&fm=26&gp=0.jpg" alt="">
+            <img class="pik" :src="userName.photo">
             <span class="suerName">{{userName.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -30,7 +30,7 @@ export default {
     }
   },
   created () {
-    this.userName = window.localStorage.getItem('userinof', JSON.parse('userinfo'))
+    this.userName = JSON.parse(window.localStorage.getItem('userInfo'))
     console.log(this.userName)
   }
 }

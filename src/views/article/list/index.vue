@@ -65,6 +65,7 @@
 </template>
 
 <script>
+const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
 export default {
   data () {
     return {
@@ -79,20 +80,31 @@ export default {
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      }],
+      dataList: [],
+      total_count: 0
     }
+  },
+  methods: {
+    // 打开页面时，需要去请求文章列表的数据
+    getarticlelist () {
+      // 这个请求如果不带 token 放回401状态码
+      // 携带 token
+      this.$http({
+        url: 'articles',
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${userInfo.token} `
+        }
+      }).then(res => {
+        console.log(res)
+        this.dataList = res.data.data.results
+        this.total_count = res.data.data.total_count
+      })
+    }
+  },
+  created () {
+    this.getarticlelist()
   }
 }
 </script>

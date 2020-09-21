@@ -45,7 +45,10 @@ const routes = [
     component: ElementUI
   }
 ]
-
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push (location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 const router = new VueRouter({
   routes
 })
@@ -53,7 +56,7 @@ const router = new VueRouter({
 router.beforeEach((to, form, next) => {
   Nprogress.start()
   if (to.path !== '/login') {
-    const userName = window.localStorage.getItem('userinof')
+    const userName = window.localStorage.getItem('userInfo')
     if (userName) {
       next()
     } else {
