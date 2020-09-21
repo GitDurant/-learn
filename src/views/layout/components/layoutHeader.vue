@@ -8,7 +8,7 @@
         <el-dropdown trigger="click">
           <span class="el-dropdown-link suerinof">
             <img class="pik" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3970647844,1653451223&fm=26&gp=0.jpg" alt="">
-            <span class="suerName">小帅</span>
+            <span class="suerName">{{userName.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -23,12 +23,20 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      userName: {}
+    }
+  },
+  created () {
+    this.userName = window.localStorage.getItem('userinof', JSON.parse('userinfo'))
+    console.log(this.userName)
+  }
+}
 </script>
 
 <style lang="less" scoped>
-.header {
-}
 .suerinof {
   display: flex;
   align-content: center;

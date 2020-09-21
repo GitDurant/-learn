@@ -12,6 +12,11 @@ import Home from '@/views/home'
 import Layout from '@/views/layout'
 // 导入Publish
 import Publish from '@/views/publish'
+// 导入nprogress
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+// 导入文章列表list
+import List from '@/views/article/list'
 Vue.use(VueRouter)
 const routes = [
   // 给login组件设置重定向
@@ -30,7 +35,8 @@ const routes = [
     component: Layout,
     children: [
       { path: '/home', component: Home },
-      { path: '/publish', component: Publish }
+      { path: '/publish', component: Publish },
+      { path: '/article/list', component: List }
     ]
   },
   {
@@ -44,4 +50,20 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, form, next) => {
+  Nprogress.start()
+  if (to.path !== '/login') {
+    const userName = window.localStorage.getItem('userinof')
+    if (userName) {
+      next()
+    } else {
+      router.push('/login')
+    }
+  } else {
+    next()
+  }
+})
+router.afterEach((to, form) => {
+  Nprogress.done()
+})
 export default router
