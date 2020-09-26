@@ -11,12 +11,18 @@ import Home from '@/views/home'
 // 导入 Layout
 import Layout from '@/views/layout'
 // 导入Publish
-import Publish from '@/views/publish'
+import Publish from '@/views/article/publish'
 // 导入nprogress
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 // 导入文章列表list
 import List from '@/views/article/list'
+// 导入评论组件
+import Comment from '@/views/comment'
+// 导入素材组件
+import Material from '@/views/material'
+// 导入用户信息组件
+import User from '@/views/user'
 Vue.use(VueRouter)
 const routes = [
   // 给login组件设置重定向
@@ -35,8 +41,16 @@ const routes = [
     component: Layout,
     children: [
       { path: '/home', component: Home },
-      { path: '/publish', component: Publish },
-      { path: '/article/list', component: List }
+      { path: '/article/publish', component: Publish },
+      { path: '/article/list', component: List },
+      // 添加一个修改文章路由
+      { path: '/article/edit/:id', component: Publish },
+      // 添加一个评论路由
+      { path: '/comment', component: Comment },
+      // 添加素材路由
+      { path: '/material', component: Material },
+      // 添加用户信息路由
+      { path: '/user/index', component: User }
     ]
   },
   {

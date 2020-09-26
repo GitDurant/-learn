@@ -93,6 +93,7 @@ export default {
         // 如果 valid 为 true 说明验证通过
         // 如果 valid 为 false 说明验证不通过
         if (valid) {
+          console.log(valid)
           // 将数据提到服务器
           this.submitData()
         } else {
@@ -113,9 +114,12 @@ export default {
       }).then(res => {
         // res 中有一个属性叫做 data, 在 data 中有两个属性后面我们会用上： token , refresh_token
         // 得到用户信息
-        const userInfo = res.data.data
+        const userInfo = res
+        console.log(userInfo)
         // 将用户的信息保存到 localstorage 中
-        window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // 直接将数据保存到vuex中=
+        this.$store.commit('setUserInfo', userInfo)
         // 只要进入到这个方法中说明登录成功
         this.$message({
           message: '登录成功',

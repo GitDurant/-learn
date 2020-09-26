@@ -6,15 +6,15 @@
       </el-col>
       <el-col :offset="6" :span="4">
         <el-dropdown trigger="click">
-          <span class="el-dropdown-link suerinof">
+          <span class="el-dropdown-link userinfo">
             <img class="pik" :src="userName.photo">
             <span class="suerName">{{userName.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
+            <el-dropdown-item>个人信息</el-dropdown-item>
+            <el-dropdown-item>git地址</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -30,14 +30,16 @@ export default {
     }
   },
   created () {
-    this.userName = JSON.parse(window.localStorage.getItem('userInfo'))
-    console.log(this.userName)
+    // this.userName = JSON.parse(window.localStorage.getItem('userInfo'))
+    // console.log(this.userName.photo)
+    // 使用vuex 中userInfo
+    this.userName = this.$store.state.userInfo
   }
 }
 </script>
 
 <style lang="less" scoped>
-.suerinof {
+.userinfo {
   display: flex;
   align-content: center;
   .pik {
