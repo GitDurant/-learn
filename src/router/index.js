@@ -23,6 +23,8 @@ import Comment from '@/views/comment'
 import Material from '@/views/material'
 // 导入用户信息组件
 import User from '@/views/user'
+// 导入Echarts
+import Echarts from '@/views/data'
 Vue.use(VueRouter)
 const routes = [
   // 给login组件设置重定向
@@ -50,7 +52,9 @@ const routes = [
       // 添加素材路由
       { path: '/material', component: Material },
       // 添加用户信息路由
-      { path: '/user/index', component: User }
+      { path: '/user/index', component: User },
+      // 添加一个Echarts路由
+      { path: '/echarts', component: Echarts }
     ]
   },
   {

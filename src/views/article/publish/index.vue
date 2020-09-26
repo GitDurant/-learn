@@ -27,27 +27,29 @@
               v-for="(item, index) in form.cover.type"
               :key="index">
               <span>点击选择图片</span>
-              <img @click="selectImg" class="myimg" src="./cross.jpg" alt="" />
+              <img @click="selectImg" class="myAdd" src="./cross.jpg" alt="" />
             </div>
           </div>
           <!-- 添加弹框dialog -->
           <el-dialog title="选择封面图片" :visible.sync="imgVisible">
             <el-tabs v-model="selectName" type="card">
               <el-tab-pane label="素材库" name="first">
-                <el-radio-group v-model="collectItem">
+                <el-radio-group v-model="collectItem" @change="changeCollect">
                   <el-radio-button label="全部"></el-radio-button>
                   <el-radio-button label="收藏"></el-radio-button>
                   <el-row>
-                    <el-col v-for="(item,index) in CollectList" :key="index">
-                      <img :src="item.url" alt="">
+                    <el-col :span="8" v-for="(item,index) in CollectList" :key="index">
+                      <img :class="{active :activeIndex === index}" @click="chooseImg(index)" class="myimg" :src="item.url" alt="">
                     </el-col>
                   </el-row>
                 </el-radio-group>
               </el-tab-pane>
               <el-tab-pane label="上传图片" name="fourth">这是上传图片</el-tab-pane>
             </el-tabs>
-              <el-button @click="dialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogVisible = false" >确 定</el-button>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="imgVisible = false">取 消</el-button>
+                <el-button type="primary" @click="imgVisible = false" >确 定</el-button>
+              </div>
           </el-dialog>
         </el-form-item>
         <el-form-item label="频道">
@@ -95,8 +97,10 @@ export default {
       selectName: 'first',
       // 选择是否全部&收藏
       collectItem: '全部',
-      // 素材数组
-      CollectList: []
+      // 素材资源数据
+      CollectList: [],
+      // 选中图片的下标
+      activeIndex: -1
     }
   },
   methods: {
@@ -175,6 +179,18 @@ export default {
       }).then(res => {
         this.CollectList = res.results
       })
+    },
+    // 点击收藏&全部出发显示全部或收藏素材
+    changeCollect () {
+      if (this.collectItem === '全部') {
+        this.getCollectList(false)
+      } else {
+        this.getCollectList(true)
+      }
+    },
+    // 选中图片函数
+    chooseImg (index) {
+      this.activeIndex = index
     }
   },
   created () {
@@ -218,10 +234,19 @@ export default {
     height: 200px;
     text-align: center;
     border: 1px solid pink;
-    .myimg {
+    .myAdd {
       width: 150px;
       height: 150px;
     }
   }
+}
+.myimg {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+}
+.active {
+  border: 8px solid pink;
+  box-sizing: border-box;
 }
 </style>
